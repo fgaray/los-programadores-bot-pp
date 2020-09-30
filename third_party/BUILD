@@ -5,7 +5,7 @@ cc_library(
     srcs = glob(["tgbot-cpp/src/**/*.cpp"]),
     hdrs = glob(["tgbot-cpp/include/**/*"]),
     strip_include_prefix = "tgbot-cpp/include",
-		deps = ["@boost//:system"],
-		copts = ["-std=c++17"],
-	  visibility = ["//visibility:public"],
+    deps = ["@boost//:system"],
+    copts = ["-std=c++17"],
+    visibility = ["//visibility:public"],
 )
