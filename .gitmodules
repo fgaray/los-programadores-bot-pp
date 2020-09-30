@@ -1,3 +1,9 @@
-[submodule "tgbot-cpp"]
-	path = tgbot-cpp
+[submodule "tgbot/tgbot-cpp"]
+	path = tgbot/tgbot-cpp
+	url = https://github.com/reo7sp/tgbot-cpp.git
+[submodule "third_party/--force"]
+	path = third_party/--force
+	url = https://github.com/reo7sp/tgbot-cpp.git
+[submodule "third_party/tgbot-cpp"]
+	path = third_party/tgbot-cpp
 	url = https://github.com/reo7sp/tgbot-cpp.git
