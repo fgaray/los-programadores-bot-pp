@@ -4,6 +4,13 @@
 #include "absl/strings/str_split.h"
 #include "absl/strings/str_join.h"
 
+namespace {
+std::vector<std::string_view> bannedStrs = {
+  "run",
+  "while"
+};
+}
+
 namespace programadores {
 
 
@@ -18,6 +25,11 @@ CommandPython::~CommandPython() {
 bool CommandPython::is_match(std::string_view str) const {
   std::vector<std::string_view> v = absl::StrSplit(str, ' ');
   if (v.size() > 1 && v.at(0) == "python") {
+    for (auto banned: bannedStrs) {
+      if (absl::StrContains(str, banned)) {
+        return false;
+      }
+    }
     return true;  
   }
 
@@ -33,6 +45,7 @@ absl::StatusOr<std::string> CommandPython::eval(std::string_view str) {
   PyObject *moduleMain = PyImport_Import(moduleMainString);
   std::stringstream ss;
   ss << "from random import randint\n";
+  ss << "from random import choice\n";
   ss << "from datetime import date\n";
   ss << "today = date.today()\n";
   ss << "\n";
