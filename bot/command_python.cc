@@ -47,14 +47,23 @@ absl::StatusOr<std::string> CommandPython::eval(std::string_view str) {
   ss << "from random import randint\n";
   ss << "from random import choice\n";
   ss << "from datetime import date\n";
+  ss << "import calendar\n";
   ss << "today = date.today()\n";
+  ss << "month = calendar.month(2020,10)\n";
   ss << "\n";
   ss << "def run():\n";
   ss << "    return str(" << input << ")";
   PyRun_SimpleString(ss.str().c_str());
   PyObject *func = PyObject_GetAttrString(moduleMain, "run");
   PyObject *result = PyObject_CallObject(func, nullptr);
+  if (!result) {
+    PyErr_Print();
+    PyErr_Clear();
+    return absl::InternalError("Python Error");
+  }
+
   const char* str_result = PyString_AsString(result);
+
   if (str_result) {
     return str_result;
   } else {
