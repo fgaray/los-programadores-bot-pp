@@ -4,6 +4,7 @@
 #include "tgbot/tgbot.h"
 #include "bot/command.h"
 #include "bot/command_python.h"
+#include "bot/log.h"
 #include "absl/status/statusor.h"
 using namespace programadores;
 
@@ -21,8 +22,15 @@ int main() {
 
   // The bot
   TgBot::Bot bot(token);
+  absl::StatusOr<std::unique_ptr<Log>> logger = Log::CreateLog();
+  if (!logger.ok()) {
+    std::cerr << "Error: " << logger.status().message() << std::endl;
+    return -1;
+  }
 
-  bot.getEvents().onAnyMessage([&bot, &commands](TgBot::Message::Ptr message) {
+  bot.getEvents().onAnyMessage([&bot, &commands, &logger](TgBot::Message::Ptr message) {
+    // we log everything
+    (*logger)->log(message);
     for (auto &command: commands) {
       if (command->is_match(message->text)) {
         absl::StatusOr<std::string> result = command->eval(message->text);

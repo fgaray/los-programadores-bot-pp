@@ -12,10 +12,10 @@ cc_binary(
       "@com_google_absl//absl/status:status",
       ":command",
       ":command-python",
+      ":log",
   ],
   linkopts = ["-pthread -lssl -lcrypto"],
 )
-
 
 cc_library(
   name = "command-python",
@@ -27,11 +27,24 @@ cc_library(
       ":command",
   ],
 )
+
 cc_library(
   name = "command",
   srcs = ["command.cc"],
   hdrs = ["command.h"],
   deps = [
+      "@com_google_absl//absl/status:statusor",
+  ],
+)
+
+cc_library(
+  name = "log",
+  srcs = ["log.cc"],
+  hdrs = ["log.h"],
+  deps = [
+      "//bot/proto:log_cc_proto",
+      "//third_party:tgbot",
+      "//third_party/recordio:recordio",
       "@com_google_absl//absl/status:statusor",
   ],
 )
