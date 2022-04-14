@@ -10,6 +10,7 @@ cc_binary(
       "//third_party:tgbot",
       "@com_google_absl//absl/status:statusor",
       "@com_google_absl//absl/status:status",
+      "@com_google_absl//absl/flags:parse",
       ":command",
       ":command-python",
       ":log",
@@ -44,7 +45,7 @@ cc_library(
   deps = [
       "//bot/proto:log_cc_proto",
       "//third_party:tgbot",
-      "//third_party/recordio:recordio",
+      "//third_party/base:recordio",
       "@com_google_absl//absl/status:statusor",
   ],
 )

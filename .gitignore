@@ -10,3 +10,4 @@ bazel-*
 .vagrant/
 Vagrantfile
 .idea/
+*.recordio

@@ -3,7 +3,7 @@ load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
 git_repository(
     name = "com_github_nelhage_rules_boost",
-    commit = "1e3a69bf2d5cd10c34b74f066054cd335d033d71",
+    commit = "652b21e35e4eeed5579e696da0facbe8dba52b1f",
     remote = "https://github.com/nelhage/rules_boost",
     shallow_since = "1591047380 -0700",
 )
@@ -31,8 +31,8 @@ load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
 http_archive(
   name = "com_google_absl",
-  urls = ["https://github.com/abseil/abseil-cpp/archive/1fd58b69c62d1bb590a4860b0db30212b2fd2af4.zip"],
-  strip_prefix = "abseil-cpp-1fd58b69c62d1bb590a4860b0db30212b2fd2af4",
+  urls = ["https://github.com/abseil/abseil-cpp/archive/215105818dfde3174fe799600bb0f3cae233d0bf.zip"],
+  strip_prefix = "abseil-cpp-215105818dfde3174fe799600bb0f3cae233d0bf",
 )
 
 http_archive(

@@ -2,23 +2,24 @@
 
 namespace programadores {
 
-absl::StatusOr<std::unique_ptr<Log>> Log::CreateLog() {
-  File* file = File::Open("log.recordio", "w");
+absl::StatusOr<std::unique_ptr<Log>> Log::CreateLog(const std::string &path) {
+  File* file = File::Open(path + "/log.recordio", "w");
   if (!file) {
-    return absl::InternalError("Can't open log.recordio for write");
+    return absl::InternalError("Can't open log.recordio for write in path " + path);
   }
 
-  std::unique_ptr<RecordWriter> record_writer = std::make_unique<RecordWriter>(file);
+  std::unique_ptr<recordio::RecordWriter> record_writer = std::make_unique<recordio::RecordWriter>(file);
   std::unique_ptr<Log> log(new Log(std::move(record_writer)));
   return log;
 }
 
-Log::Log(std::unique_ptr<RecordWriter> record_writer): _record_writer(std::move(record_writer)) {
+Log::Log(std::unique_ptr<recordio::RecordWriter> record_writer): _record_writer(std::move(record_writer)) {
 
 }
 
 Log::~Log() {
   _record_writer->Close();
+  std::cout << "closing" << std::endl;
 }
 
 void Log::log(TgBot::Message::Ptr message_ptr) {
